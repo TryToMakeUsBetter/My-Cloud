@@ -4,6 +4,8 @@ go 1.21.4
 
 require github.com/gogf/gf/v2 v2.8.3
 
+require github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
+
 require (
 	github.com/BurntSushi/toml v1.4.0 // indirect
 	github.com/clbanning/mxj v1.8.5-0.20200714211355-ff02cfb8ea28 // indirect
