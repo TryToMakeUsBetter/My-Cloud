@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"mycloud/My-Cloud/internal/dao/internal"
+	"my-cloud/internal/dao/internal"
 )
 
 // internalUsersDao is an internal type for wrapping the internal DAO implementation.
