@@ -4,6 +4,7 @@ import (
 	"errors"
 	"my-cloud/internal/cmd"
 
+	_ "github.com/gogf/gf/contrib/drivers/mysql/v2"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gctx"
 )
@@ -17,7 +18,7 @@ func main() {
 		panic(err)
 	}
 
-	cmd.Main.Run(gctx.New())
+	cmd.Main.Run(gctx.GetInitCtx())
 }
 
 // connDb 检查数据库连接是否正常

@@ -1,0 +1,8 @@
+server:
+    address: ":8000"         # 服务监听端口
+    openapiPath: "/api.json" # OpenAPI接口文档地址
+    swaggerPath: "/swagger"  # 内置SwaggerUI展示地址
+database:
+  default:
+    link:   "mysql:root:123456@tcp(127.0.0.1:3306)/GoFrameExample"
+    debug:  true
