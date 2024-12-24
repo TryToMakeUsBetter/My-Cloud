@@ -2,9 +2,11 @@ package words
 
 import (
 	"context"
+	"fmt"
 	"my-cloud/internal/dao"
 	"my-cloud/internal/model"
 	"my-cloud/internal/model/do"
+	"my-cloud/internal/model/entity"
 
 	"github.com/gogf/gf/v2/errors/gerror"
 )
@@ -78,4 +80,40 @@ func checkWordWithoutItself(ctx context.Context, id uint, in *model.WordInput) e
 		return gerror.New("单词已存在")
 	}
 	return nil
+}
+
+func List(ctx context.Context, query *model.WordQuery) (list []entity.Words, total uint, err error) {
+	if query == nil {
+		query = &model.WordQuery{}
+	}
+	// 对于查询初始值的处理
+	if query.Page == 0 {
+		query.Page = 1
+	}
+	if query.Size == 0 {
+		query.Size = 15
+	}
+
+	// 组成查询链
+	db := dao.Words.Ctx(ctx)
+	if query.Uid > 0 {
+		db = db.Where("uid", query.Uid)
+	}
+
+	// 模糊查询
+	if len(query.Word) != 0 {
+		db = db.WhereLike("word", fmt.Sprintf("%%%s%%", query.Word))
+	}
+	db = db.Order("created_at desc, id desc").Page(query.Page, query.Size)
+
+	data, totalInt, err := db.AllAndCount(true)
+	if err != nil {
+		return
+	}
+
+	list = []entity.Words{}
+	_ = data.Structs(&list)
+	total = uint(totalInt)
+
+	return
 }

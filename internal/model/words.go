@@ -19,3 +19,10 @@ type WordInput struct {
 	Pronunciation      string
 	ProficiencyLevel   ProficiencyLevel
 }
+
+type WordQuery struct {
+	Uid  uint
+	Word string
+	Page int
+	Size int
+}
