@@ -4,6 +4,7 @@ import (
 	"my-cloud/internal/model"
 
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 type CreateReq struct {
@@ -50,4 +51,21 @@ type ListReq struct {
 type ListRes struct {
 	List  []List `json:"list"`
 	Total uint   `json:"total"`
+}
+
+type DetailReq struct {
+	g.Meta `path:"words/{id}" method:"get" sm:"详情" tags:"单词"`
+	Id     uint `json:"id" v:"required"`
+}
+
+type DetailRes struct {
+	Id                 uint        `json:"id"`
+	Word               string      `json:"word"`
+	Definition         string      `json:"definition"`
+	ExampleSentence    string      `json:"exampleSentence"`
+	ChineseTranslation string      `json:"chineseTranslation"`
+	Pronunciation      string      `json:"pronunciation"`
+	ProficiencyLevel   uint        `json:"proficiencyLevel"`
+	CreatedAt          *gtime.Time `json:"createdAt"`
+	UpdatedAt          *gtime.Time `json:"updatedAt"`
 }

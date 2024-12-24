@@ -117,3 +117,13 @@ func List(ctx context.Context, query *model.WordQuery) (list []entity.Words, tot
 
 	return
 }
+
+func Detail(ctx context.Context, uid, id uint) (word *entity.Words, err error) {
+	word = &entity.Words{}
+	db := dao.Words.Ctx(ctx).Where("id", id)
+	if uid > 0 {
+		db = db.Where("uid", uid)
+	}
+	err = db.Scan(word)
+	return
+}
