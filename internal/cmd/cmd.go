@@ -25,12 +25,12 @@ var (
 					group.Bind(
 						users.NewV1(),
 					)
-				})
-				group.Group("/", func(group *ghttp.RouterGroup) {
-					group.Middleware(middleware.Auth)
-					group.Bind(
-						account.NewV1(),
-					)
+					group.Group("/", func(group *ghttp.RouterGroup) {
+						group.Middleware(middleware.Auth)
+						group.Bind(
+							account.NewV1(),
+						)
+					})
 				})
 			})
 			s.Run()
