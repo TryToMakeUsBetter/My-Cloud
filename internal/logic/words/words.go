@@ -34,7 +34,7 @@ func checkWord(ctx context.Context, in *model.WordInput) error {
 	if err != nil {
 		return err
 	}
-	if !ex {
+	if ex {
 		return gerror.New("单词已存在")
 	}
 	return nil

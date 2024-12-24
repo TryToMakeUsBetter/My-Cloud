@@ -9,6 +9,7 @@ import (
 
 	"my-cloud/internal/controller/account"
 	"my-cloud/internal/controller/users"
+	"my-cloud/internal/controller/words"
 	"my-cloud/internal/logic/middleware"
 )
 
@@ -29,7 +30,9 @@ var (
 						group.Middleware(middleware.Auth)
 						group.Bind(
 							account.NewV1(),
+							words.NewV1(),
 						)
+
 					})
 				})
 			})
