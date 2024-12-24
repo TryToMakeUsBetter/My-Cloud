@@ -5,6 +5,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/golang-jwt/jwt/v5"
 
 	"my-cloud/internal/dao"
@@ -44,4 +45,18 @@ func Login(ctx context.Context, username, password string) (tokenString string, 
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, userClaims)
 	return token.SignedString(utility.JwtKey)
+}
+
+func Info(ctx context.Context) (user *entity.Users, err error) {
+	user = new(entity.Users)
+	tokenString := g.RequestFromCtx(ctx).Request.Header.Get("Authorization")
+
+	tokenClaims, _ := jwt.ParseWithClaims(tokenString, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return utility.JwtKey, nil
+	})
+
+	if claims, ok := tokenClaims.Claims.(*UserClaims); ok && tokenClaims.Valid {
+		err = dao.Users.Ctx(ctx).Where("id", claims.Id).Scan(&user)
+	}
+	return
 }

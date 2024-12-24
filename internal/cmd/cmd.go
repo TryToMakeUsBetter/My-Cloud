@@ -2,11 +2,14 @@ package cmd
 
 import (
 	"context"
-	"my-cloud/internal/controller/users"
 
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
+
+	"my-cloud/internal/controller/account"
+	"my-cloud/internal/controller/users"
+	"my-cloud/internal/logic/middleware"
 )
 
 var (
@@ -21,6 +24,12 @@ var (
 				group.Group("/v1", func(group *ghttp.RouterGroup) {
 					group.Bind(
 						users.NewV1(),
+					)
+				})
+				group.Group("/", func(group *ghttp.RouterGroup) {
+					group.Middleware(middleware.Auth)
+					group.Bind(
+						account.NewV1(),
 					)
 				})
 			})
