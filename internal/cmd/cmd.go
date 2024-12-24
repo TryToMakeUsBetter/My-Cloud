@@ -32,7 +32,6 @@ var (
 							account.NewV1(),
 							words.NewV1(),
 						)
-
 					})
 				})
 			})
