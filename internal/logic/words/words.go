@@ -127,3 +127,11 @@ func Detail(ctx context.Context, uid, id uint) (word *entity.Words, err error) {
 	err = db.Scan(word)
 	return
 }
+
+func Delete(ctx context.Context, uid, id uint) (err error) {
+	_, err = dao.Words.Ctx(ctx).Where("uid = ? && id = ?", uid, id).Delete()
+	if err != nil {
+		return err
+	}
+	return err
+}
